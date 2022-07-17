@@ -1,0 +1,12 @@
+name: Base Master call a reusable workflow 
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  call-workflow-passing-data:
+    uses: vladmalynych/action-test/.github/workflows/reusable.yaml@master
+    with:
+      build_id: 1111
