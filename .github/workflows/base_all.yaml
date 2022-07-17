@@ -11,4 +11,4 @@ jobs:
   call-workflow-passing-data:
     uses: vladmalynych/action-test/.github/workflows/reusable.yaml@master
     with:
-      build_id: 2222
+      build_id: ${{ github.run_number }}
