@@ -1,4 +1,4 @@
-name: Base Master call a reusable workflow 
+name: Base All call a reusable workflow 
 
 on:
   push:
