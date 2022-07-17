@@ -1,4 +1,1 @@
 # action-test
-
-master
-test
