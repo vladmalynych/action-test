@@ -1,9 +1,10 @@
 name: Base All call a reusable workflow 
 
 on:
-  pull_request:
+  push:
     branches:
-      - '!master'
+    - '*'
+    - '!master'
 
 
 jobs:
