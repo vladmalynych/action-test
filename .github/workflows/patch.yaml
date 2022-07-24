@@ -1,0 +1,16 @@
+name: Patch image name in action-update
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    bors-check:
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v3
+            with:
+              repository: 'vladmalynych/action-update'
+              path: 'actions/'
+              fetch-depth: 0
