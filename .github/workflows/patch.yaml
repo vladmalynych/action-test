@@ -24,7 +24,7 @@ jobs:
               repository: vladmalynych/action-update
               branch: master
               targetBranch: master
-              createPR: true
+              createPR: false
               message: 'Update Image Version'
               token: ${{ secrets.GITHUB_TOKEN }}
               workDir: action-update
