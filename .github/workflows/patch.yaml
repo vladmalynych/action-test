@@ -6,14 +6,25 @@ on:
       - master
 
 jobs:
-    patch:
+    patch_remote:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v3
             with:
               repository: 'vladmalynych/action-update'
-              path: 'actions/'
+              path: action-update
               fetch-depth: 0
 
-          - name: List dir
-            run: ls && ls actions/
+          - name: Update Image Version in the related yaml
+            uses: fjogeleit/yaml-update-action@main
+            with:
+              valueFile: 'manifests/some_manifest/deployment.yml'
+              propertyPath: 'spec.template.spec.containers[0].image'
+              value: '12.0'
+              repository: vladmalynych/action-update
+              branch: master
+              targetBranch: master
+              createPR: true
+              message: 'Update Image Version'
+              token: ${{ secrets.GITHUB_TOKEN }}
+              workDir: action-update
