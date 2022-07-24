@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-    bors-check:
+    patch:
         runs-on: ubuntu-latest
         steps:
           - uses: actions/checkout@v3
@@ -14,3 +14,6 @@ jobs:
               repository: 'vladmalynych/action-update'
               path: 'actions/'
               fetch-depth: 0
+
+          - name: List dir
+            run: ls && ls actions/
