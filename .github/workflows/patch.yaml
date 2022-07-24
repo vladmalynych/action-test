@@ -19,8 +19,8 @@ jobs:
             uses: fjogeleit/yaml-update-action@main
             with:
               valueFile: 'manifests/some_manifest/deployment.yml'
-              propertyPath: 'spec.template.spec.containers[0].image'
-              value: '12.0'
+              propertyPath: 'metadata.name'
+              value: 'test'
               repository: vladmalynych/action-update
               branch: master
               targetBranch: master
