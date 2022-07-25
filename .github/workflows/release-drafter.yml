@@ -52,10 +52,11 @@ jobs:
       - build_push_image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: 'vladmalynych/action-update'
-          ssh-key: ${{ secrets.GH_TOKEN }}
+          #ssh-key: ${{ secrets.GH_TOKEN }}
+          fetch-depth: 0
           # path: action-update
 
       - name: Update Image Version in the related yaml
@@ -69,7 +70,7 @@ jobs:
           updateFile: true
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v4
         with:
           # path: action-update
           commit-message: Update manifest
