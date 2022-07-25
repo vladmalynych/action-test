@@ -59,6 +59,11 @@ jobs:
           fetch-depth: 0
           # path: action-update
 
+      - name: Install SSH Client 🔑
+        uses: webfactory/ssh-agent@v0.4.0
+        with:
+          ssh-private-key: ${{ secrets.DEPLOYKEY }}
+
       - name: Update Image Version in the related yaml
         uses: fjogeleit/yaml-update-action@main
         with:
@@ -73,7 +78,6 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           # path: action-update
-          token: ${{ secrets.GH_TOKEN }}
           commit-message: Update manifest
           branch: 'patch-ledger-${{ needs.release.outputs.tag_name }}'
           signoff: false
