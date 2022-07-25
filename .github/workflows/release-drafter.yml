@@ -66,9 +66,10 @@ jobs:
           propertyPath: 'spec.template.spec.containers[0].image'
           value: 'repo/user:${{ needs.release.outputs.tag_name }}'
           repository: vladmalynych/action-update
-          branch: master
+          branch: 'ledger/${{ needs.release.outputs.tag_name }}'
+          targetBranch: master
           commitChange: true
-          createPR: false
+          createPR: true
           message: 'Update Image Version'
-          token: ''
+          token: ${{ secrets.GH_TOKEN }}
           workDir: action-update
