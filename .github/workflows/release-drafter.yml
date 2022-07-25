@@ -73,11 +73,12 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           # path: action-update
+          token: ${{ secrets.GH_TOKEN }}
           commit-message: Update manifest
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           branch: 'patch-ledger-${{ needs.release.outputs.tag_name }}'
           signoff: false
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           delete-branch: true
           title: '[Ledger] Update Manifest ${{ needs.release.outputs.tag_name }}'
           body: |
