@@ -70,4 +70,5 @@ jobs:
           commitChange: true
           createPR: false
           message: 'Update Image Version'
+          token: ''
           workDir: action-update
