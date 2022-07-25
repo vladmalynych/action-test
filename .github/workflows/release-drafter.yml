@@ -26,9 +26,14 @@ jobs:
       - release_draft
     runs-on: ubuntu-latest
     steps:
-      - name: Test action
-        run: asdasdasd
-        shell: bash
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@69f6fc9d46f2f8bf0d5491e4aabe0bb8c6a4678a # v4.0.1
+        with:
+          images: twistopayments/ledger
+          tags: |
+            type=semver,pattern={{raw}},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
+            type=ref,suffix=.latest,event=branch
 
   patch_image:
     name: 🩹 Patch manifest
