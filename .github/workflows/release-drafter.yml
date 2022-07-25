@@ -31,7 +31,7 @@ on:
   build_push_image:
     name: ⚙️ Build & Push image
     needs:
-      - release_draft
+      - release
     runs-on: ubuntu-latest
     steps:
       - name: Extract metadata (tags, labels) for Docker
@@ -47,7 +47,7 @@ on:
     name: 🩹 Patch manifest
     if: ${{ github.ref == 'refs/heads/master' }}
     needs:
-      - release_draft
+      - release
       - build_push_image
     runs-on: ubuntu-latest
     steps:
