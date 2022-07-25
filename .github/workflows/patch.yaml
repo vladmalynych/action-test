@@ -23,8 +23,8 @@ jobs:
               value: 'test'
               repository: vladmalynych/action-update
               branch: master
-              targetBranch: master
-              commitChange: false
+              # targetBranch: master
+              commitChange: true
               createPR: false
               message: 'Update Image Version'
               token: ${{ secrets.GITHUB_TOKEN }}
