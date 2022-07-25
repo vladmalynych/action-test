@@ -56,8 +56,7 @@ jobs:
         with:
           repository: 'vladmalynych/action-update'
           ssh-key: ${{ secrets.DEPLOYKEY }}
-          path: action-update
-          fetch-depth: 0
+          # path: action-update
 
       - name: Update Image Version in the related yaml
         uses: fjogeleit/yaml-update-action@main
@@ -65,14 +64,14 @@ jobs:
           valueFile: 'manifests/some_manifest/deployment.yml'
           propertyPath: 'spec.template.spec.containers[0].image'
           value: 'repo/user:${{ needs.release.outputs.tag_name }}'
-          workDir: action-update
+          # workDir: action-update
           commitChange: false
           updateFile: true
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
-          path: action-update
+          # path: action-update
           commit-message: Update manifest
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
