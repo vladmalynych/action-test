@@ -31,7 +31,7 @@ jobs:
         shell: bash
 
   patch_image:
-    name: 🩹 Patch image
+    name: 🩹 Patch manifest
     if: ${{ github.ref == 'refs/heads/master' }}
     needs:
       - release_draft
