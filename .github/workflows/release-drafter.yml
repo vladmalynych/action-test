@@ -14,7 +14,7 @@ jobs:
     name: 📌️ Release Drafter
     runs-on: ubuntu-latest
     outputs:
-      tag_name: ${{ steps.release.outputs.name }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
       branch_name: ${{ steps.branch_name.outputs.current_branch }}
     steps:
       - name: Get branch name
