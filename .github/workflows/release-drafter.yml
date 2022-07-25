@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test action
-        run: echo "test action"
+        run: asdasdasd
         shell: bash
 
   patch_image:
