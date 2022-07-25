@@ -55,6 +55,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           repository: 'vladmalynych/action-update'
+          ssh-key: ${{ secrets.DEPLOYKEY }}
           path: action-update
           fetch-depth: 0
 
@@ -69,5 +70,4 @@ jobs:
           commitChange: true
           createPR: false
           message: 'Update Image Version'
-          token: ${{ secrets.GH_TOKEN }}
           workDir: action-update
