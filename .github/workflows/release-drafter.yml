@@ -9,13 +9,17 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
-jobs:
-  release_draft:
+  release:
     name: 📌️ Release Drafter
     runs-on: ubuntu-latest
     outputs:
       tag_name: ${{ steps.release.outputs.name }}
+      branch_name: ${{ steps.branch_name.outputs.current_branch }}
     steps:
+      - name: Get branch name
+        id: branch_name
+        uses: tj-actions/branch-names@b0f914ba0e7aa1e243b53df97447f71eb57da09a # pin@v5.2
+
       - name: Create Release
         id: release
         uses: release-drafter/release-drafter@e5ccf147077e46b0225a80bbe314d795d77bb7a2
@@ -36,8 +40,8 @@ jobs:
         with:
           images: twistopayments/ledger
           tags: |
-            type=semver,pattern={{raw}},value=${{needs.release_draft.outputs.tag_name}},enable=${{ github.ref == format('refs/heads/{0}', 'master') }}
-            type=raw,value={{branch}}.latest
+            type=semver,pattern={{raw}},value=${{needs.release.outputs.tag_name}},enable=${{ needs.release.outputs.branch_name == master }}
+            type=raw,value=${{needs.release.outputs.branch_name}}.latest,enable=true
 
   patch_image:
     name: 🩹 Patch manifest
