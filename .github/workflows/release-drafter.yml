@@ -86,5 +86,4 @@ jobs:
             - new image version: ${{ needs.release.outputs.tag_name }}
           labels: |
             automerge
-          milestone: 1
           draft: false
