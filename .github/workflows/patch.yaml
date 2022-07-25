@@ -27,5 +27,5 @@ jobs:
               commitChange: true
               createPR: false
               message: 'Update Image Version'
-              token: ${{ secrets.GITHUB_TOKEN }}
+              token: ${{ secrets.GH_TOKEN }}
               workDir: action-update
