@@ -55,7 +55,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           repository: 'vladmalynych/action-update'
-          ssh-key: ${{ secrets.DEPLOYKEY }}
+          # ssh-key: ${{ secrets.DEPLOYKEY }}
           # path: action-update
 
       - name: Update Image Version in the related yaml
