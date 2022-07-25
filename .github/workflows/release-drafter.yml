@@ -63,7 +63,7 @@ jobs:
         with:
           valueFile: 'manifests/some_manifest/deployment.yml'
           propertyPath: 'spec.template.spec.containers[0].image'
-          value: 'test'
+          value: 'repo/user:${{ needs.release.outputs.tag_name }}'
           repository: vladmalynych/action-update
           branch: master
           commitChange: true
