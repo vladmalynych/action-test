@@ -45,35 +45,23 @@ jobs:
             type=raw,value=${{needs.release.outputs.branch_name}}.latest,enable=true
 
   patch_image:
-    name: 🩹 Patch manifest
+    name: 🩹 Call Patch manifest workflow
     if: ${{ github.ref == 'refs/heads/master' }}
     needs:
       - release
       - build_push_image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Call workflow
+        uses: convictional/trigger-workflow-and-wait@v1.6.3
         with:
-          repository: 'vladmalynych/action-update'
-          #ssh-key: ${{ secrets.GH_TOKEN }}
-          fetch-depth: 0
-          path: action-update
-
-      - name: Patch manifests
-        uses: fjogeleit/yaml-update-action@a77606cff437e552914df4f1db9dce1659e0b3f5 # v0.10.0
-        with:
-          valueFile: 'manifests/some_manifest/deployment.yml'
-          propertyPath: 'spec.template.spec.containers[0].image'
-          value: 'my/test:${{ needs.release.outputs.tag_name }}'
-          repository: 'vladmalynych/action-update'
-          branch: patch-ledger-${{ needs.release.outputs.tag_name }}
-          targetBranch: master
-          commitChange: true
-          createPR: true
-          message: "Patch Ledger deployment image ${{ needs.release.outputs.tag_name }}"
-          description: |
-            Patch Ledger deployment image:
-              - `image: twistopayments/ledger:${{ needs.release.outputs.tag_name }}`
-          labels: "automerge"
-          token: ${{ secrets.GH_TOKEN }}
-          workDir: action-update
+          owner: vladmalynych
+          repo: action-update
+          github_token: ${{ secrets.GH_TOKEN }}
+          workflow_file_name: patch_manifest.yaml
+          ref: master
+          wait_interval: 30
+          client_payload: '{}'
+          propagate_failure: true
+          trigger_workflow: true
+          wait_workflow: true
