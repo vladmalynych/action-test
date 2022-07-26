@@ -66,15 +66,14 @@ jobs:
           propertyPath: 'spec.template.spec.containers[0].image'
           value: 'my/test:${{ needs.release.outputs.tag_name }}'
           repository: 'vladmalynych/action-update'
-          branch: patch-ledger-${{ steps.image.outputs.version }}
+          branch: patch-ledger-${{ needs.release.outputs.tag_name }}
           targetBranch: master
           commitChange: true
           createPR: true
-          message: "Patch deployment image ${{ needs.release.outputs.tag_name }}"
-          title: "[Ledger] {{message}}"
+          message: "Patch Ledger deployment image ${{ needs.release.outputs.tag_name }}"
           description: |
-            Patch Ledger deployment image
-              - image: twistopayments/ledger:${{ needs.release.outputs.tag_name }}
+            Patch Ledger deployment image:
+              - `image: twistopayments/ledger:${{ needs.release.outputs.tag_name }}`
           labels: "automerge"
           token: ${{ secrets.GH_TOKEN }}
           workDir: action-update
