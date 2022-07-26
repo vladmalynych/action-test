@@ -66,7 +66,7 @@ jobs:
           propertyPath: 'spec.template.spec.containers[0].image'
           value: 'my/test:${{ needs.release.outputs.tag_name }}'
           repository: 'vladmalynych/action-update'
-          branch: patch-ledger/${{ steps.image.outputs.version }}
+          branch: patch-ledger-${{ steps.image.outputs.version }}
           targetBranch: master
           commitChange: true
           createPR: true
