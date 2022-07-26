@@ -57,39 +57,24 @@ jobs:
           repository: 'vladmalynych/action-update'
           #ssh-key: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
-          # path: action-update
+          path: action-update
 
-      - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.4.0
-        env:
-          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
-        with:
-          ssh-private-key: ${{ secrets.DEPLOYKEY }}
-
-      - name: Update Image Version in the related yaml
-        uses: fjogeleit/yaml-update-action@main
+      - name: Patch manifests
+        uses: fjogeleit/yaml-update-action@a77606cff437e552914df4f1db9dce1659e0b3f5 # v0.10.0
         with:
           valueFile: 'manifests/some_manifest/deployment.yml'
           propertyPath: 'spec.template.spec.containers[0].image'
-          value: 'repo/user:${{ needs.release.outputs.tag_name }}'
-          # workDir: action-update
-          commitChange: false
-          updateFile: true
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          # path: action-update
-          commit-message: Update manifest
-          branch: 'patch-ledger-${{ needs.release.outputs.tag_name }}'
-          signoff: false
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
-          delete-branch: true
-          title: '[Ledger] Update Manifest ${{ needs.release.outputs.tag_name }}'
-          body: |
-            Update Ledger image in manifest
-            - new image version: ${{ needs.release.outputs.tag_name }}
-          labels: |
-            automerge
-          draft: false
+          value: 'my/test:${{ needs.release.outputs.tag_name }}'
+          repository: 'vladmalynych/action-update'
+          branch: patch-ledger/${{ steps.image.outputs.version }}
+          targetBranch: master
+          commitChange: true
+          createPR: true
+          message: "Patch deployment image ${{ needs.release.outputs.tag_name }}"
+          title: "[Ledger] {{message}}"
+          description: |
+            Patch Ledger deployment image
+              - image: twistopayments/ledger:${{ needs.release.outputs.tag_name }}
+          labels: "automerge"
+          token: ${{ secrets.GH_TOKEN }}
+          workDir: action-update
