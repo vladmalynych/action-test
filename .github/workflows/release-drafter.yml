@@ -61,12 +61,12 @@ jobs:
           workflow_file_name: patch_manifest.yaml
           ref: master
           client_payload: |
-          {
+          '{
             "valueFile": "manifests/some_manifest/deployment.yml",
             "propertyPath": "spec.template.spec.containers[0].image",
             "value": "my/test:${{ needs.release.outputs.tag_name }}",
             "branch": "patch-ledger-${{ needs.release.outputs.tag_name }}",
-          }
+          }'
           propagate_failure: true
           trigger_workflow: true
           wait_workflow: true
